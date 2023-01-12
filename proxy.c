@@ -131,7 +131,7 @@ int main(){
     }
     printf("Connexion au serveur réussie\n");
 
-    // *WORKING Quatrième étape : lire le message envoyé par le serveur
+    // Quatrième étape : lire le message envoyé par le serveur
     ecode=read(sockServeurCMD, buffer, MAXBUFFERLEN-1);
     if (ecode == -1){
         perror("Erreur lecture dans socket\n");
@@ -140,8 +140,8 @@ int main(){
     buffer[ecode]='\0';
     printf("Message recu du serveur : %s\n", buffer);
 
-    // !TOFIX Cinquième étape : envoyer les informations de connexion au serveur
-    sprintf(buffer,"%s\r)",login);
+    // Cinquième étape : envoyer les informations de connexion au serveur
+    sprintf(buffer,"%s\r\n",login);
     ecode = write(sockServeurCMD, buffer, strlen(buffer));
     if (ecode == -1){
         perror("Erreur écriture dans socket\n");
@@ -176,12 +176,12 @@ int main(){
     printf("Message recu : %s\n", buffer);
 
     // Neuvième étape : envoyer le mot de passe au serveur
-    char password[50];
-    sprintf(buffer,"%s\r)",password);
+    sprintf(buffer + strlen(buffer),"\r\n");
+
     write(sockServeurCMD, buffer, strlen(buffer));
     printf("Message envoyé au serveur : %s\n", buffer);
 
-    // Dixième étape : lire le message envoyé par le serveur
+    // *WORKING Dixième étape : lire le message envoyé par le serveur
     ecode=read(sockServeurCMD, buffer, MAXBUFFERLEN-1);
     if(ecode == -1){
         perror("Erreur lecture dans socket\n");
