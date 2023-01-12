@@ -28,7 +28,7 @@ int main(){
     struct sockaddr_storage myinfo;  // Informations sur la connexion de RDV
     struct sockaddr_storage from;    // Informations sur le client connecté
     socklen_t len;                   // Variable utilisée pour stocker les 
-				                     // longueurs des structures de socket
+                                     // longueurs des structures de socket
     char buffer[MAXBUFFERLEN];       // Tampon de communication entre le client et le serveur
     
     // Initialisation de la socket de RDV IPv4/TCP
@@ -45,7 +45,7 @@ int main(){
     hints.ai_flags = AI_PASSIVE;      // mode serveur, nous allons utiliser la fonction bind
     hints.ai_socktype = SOCK_STREAM;  // TCP
     hints.ai_family = AF_INET;        // seules les adresses IPv4 seront présentées par 
-				                      // la fonction getaddrinfo
+                                      // la fonction getaddrinfo
 
      // Récupération des informations du serveur
      ecode = getaddrinfo(SERVADDR, SERVPORT, &hints, &res);
@@ -86,7 +86,7 @@ int main(){
          exit(5);
      }
 
-	len = sizeof(struct sockaddr_storage);
+    len = sizeof(struct sockaddr_storage);
      // Attente connexion du client
      // Lorsque demande de connexion, creation d'une socket de communication avec le client
      descSockCOM = accept(descSockRDV, (struct sockaddr *) &from, &len);
@@ -99,7 +99,7 @@ int main(){
     /*****
      * Testez de mettre 220 devant BLABLABLA ...
      * **/
-    strcpy(buffer, "220 BLABLABLA\n");
+    strcpy(buffer, "220 BLABLABLA Proxy working...\n");
     write(descSockCOM, buffer, strlen(buffer));
 
     /*******
@@ -176,8 +176,7 @@ int main(){
     printf("Message recu : %s\n", buffer);
 
     // Neuvième étape : envoyer le mot de passe au serveur
-    sprintf(buffer + strlen(buffer),"\r\n");
-
+    // sprintf(buffer,"\r\n");
     write(sockServeurCMD, buffer, strlen(buffer));
     printf("Message envoyé au serveur : %s\n", buffer);
 
@@ -190,7 +189,7 @@ int main(){
     buffer[ecode]='\0';
     printf("Message recu du serveur : %s\n", buffer);
 
-    // Onzième étape : envoyer le message du serveur au client
+    //  Onzième étape : envoyer le message du serveur au client
     ecode = write(descSockCOM, buffer, strlen(buffer));
     if(ecode == -1){
         perror("Erreur écriture dans socket\n");
@@ -199,8 +198,8 @@ int main(){
     printf("Message envoyé au client : %s\n", buffer);
 
     //Fermeture de la connexion
+    printf("fremeture connexion\n");
     close(descSockCOM);
     close(descSockRDV);
     close(sockServeurCMD); // Fermeture du socket de connexion au serveur
 }
-
