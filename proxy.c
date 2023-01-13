@@ -198,7 +198,7 @@ int main(){
     printf("Message envoyé au client : %s\n", buffer);
 
     //Fermeture de la connexion
-    printf("fremeture connexion\n");
+    printf("Fermeture de la connexion\n");
     close(descSockCOM);
     close(descSockRDV);
     close(sockServeurCMD); // Fermeture du socket de connexion au serveur
