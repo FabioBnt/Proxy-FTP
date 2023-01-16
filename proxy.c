@@ -195,6 +195,7 @@ int main(){
         exit(10);
     }
     printf("Message envoyé au client : %s\n", buffer);
+    
 
     // Douzième étape : lire le message envoyé par le client //? auto SYST (système d'exploitation)
     ecode=read(descSockCOM, buffer, MAXBUFFERLEN-1);
@@ -239,60 +240,12 @@ int main(){
     write(sockServeurCMD, buffer, strlen(buffer));
     printf("Message envoyé au serveur : %s \n", buffer);
 
-    // Dix-huitième étape : lire le message retourné par le serveur
-    ecode=read(sockServeurCMD, buffer, MAXBUFFERLEN-1);
-    if(ecode == -1){
-        perror("Erreur lecture dans socket\n");
-        exit(9);
-    }
-    buffer[ecode]='\0';
-    printf("Message recu du serveur : %s\n", buffer);
 
-    //Dix-neufième étape:  transmition du message du serveur au client 
-    ecode = write(descSockCOM, buffer, strlen(buffer));
-    if(ecode == -1){
-        perror("Erreur écriture dans socket\n");
-        exit(10);
-    }
-    printf("Message envoyé au client : %s\n", buffer);
-
-    //Vingtième étape : lecture de la commande entrée par le client
-    ecode=read(descSockCOM, buffer, MAXBUFFERLEN-1);
-    if (ecode == -1){
-        perror("Erreur lecture dans socket\n");
-        exit(7);
-    }
-    buffer[ecode]='\0';
-    printf("Message recu : %s\n", buffer);
-
-    // transmition de la commande au serveur
-     ecode = write(sockServeurCMD, buffer, strlen(buffer));
-    if(ecode == -1){
-        perror("Erreur écriture dans socket\n");
-        exit(10);
-    }
-    printf("Message envoyé au serveur : %s\n", buffer);
-
-    //lecture du message de retour du serveur
-    ecode=read(sockServeurCMD, buffer, MAXBUFFERLEN-1);
-    if(ecode == -1){
-        perror("Erreur lecture dans socket\n");
-        exit(9);
-    }
-    buffer[ecode]='\0';
-    printf("Message recu du serveur : %s\n", buffer);
-
-    //transmition du message du serveur au client 
-    ecode = write(descSockCOM, buffer, strlen(buffer));
-    if(ecode == -1){
-        perror("Erreur écriture dans socket\n");
-        exit(10);
-    }
-    printf("Message envoyé au client : %s\n", buffer);
+    
 
     //Fermeture de la connexion
     printf("Fermeture de la connexion\n");
     close(descSockCOM);
     close(descSockRDV);
-    close(sockServeurCMD); // Fermeture du socket de connexion au serveur
+    //close(sockServeurCMD); // Fermeture du socket de connexion au serveur
 }
