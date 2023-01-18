@@ -227,21 +227,114 @@ int main(){
     }
     printf("Message envoyé au client : %s\n", buffer);
 
-    // Seizième étape : lire le message envoyé par le client //? supposé être PASS et ls
-    ecode=read(descSockCOM, buffer, MAXBUFFERLEN-1);
-    if (ecode == -1){
-        perror("Erreur lecture dans socket\n");
-        exit(7);
+    while (buffer != "QUIT")
+    {
+        // Seizième étape : lire le message envoyé par le client //? supposé être PASS et ls
+        ecode=read(descSockCOM, buffer, MAXBUFFERLEN-1);
+        if (ecode == -1){
+            perror("Erreur lecture dans socket\n");
+            exit(7);
+        }
+        buffer[ecode]='\0';
+        printf("Message recu : %s\n", buffer);
+
+        // Dix-septième étape : envoyer les requêtes au serveur
+        write(sockServeurCMD, buffer, strlen(buffer));
+        printf("Message envoyé au serveur : %s \n", buffer);
+
+        // Dix-huitième étape : lire le message envoyé par le serveur
+        ecode=read(sockServeurCMD, buffer, MAXBUFFERLEN-1);
+        if(ecode == -1){
+            perror("Erreur lecture dans socket\n");
+            exit(9);
+        }
+        buffer[ecode]='\0';
+        printf("Message recu du serveur : %s\n", buffer);
+
+        // Dix-neuvième étape : envoyer le message du serveur au client
+        ecode = write(descSockCOM, buffer, strlen(buffer));
+        if(ecode == -1){
+            perror("Erreur écriture dans socket\n");
+            exit(10);
+        }
+        printf("Message envoyé au client : %s\n", buffer);
     }
-    buffer[ecode]='\0';
-    printf("Message recu : %s\n", buffer);
-
-    // Dix-septième étape : envoyer les requêtes au serveur
-    write(sockServeurCMD, buffer, strlen(buffer));
-    printf("Message envoyé au serveur : %s \n", buffer);
-
 
     
+    
+
+    // // Seizième étape : lire le message envoyé par le client //? supposé être PASS et ls
+    // ecode=read(descSockCOM, buffer, MAXBUFFERLEN-1);
+    // if (ecode == -1){
+    //     perror("Erreur lecture dans socket\n");
+    //     exit(7);
+    // }
+    // buffer[ecode]='\0';
+    // printf("Message recu : %s\n", buffer);
+
+    // // Dix-septième étape : envoyer les requêtes au serveur
+    // write(sockServeurCMD, buffer, strlen(buffer));
+    // printf("Message envoyé au serveur : %s \n", buffer);
+
+    // // Dix-huitième étape : lire le message envoyé par le serveur
+    // ecode=read(sockServeurCMD, buffer, MAXBUFFERLEN-1);
+    // if(ecode == -1){
+    //     perror("Erreur lecture dans socket\n");
+    //     exit(9);
+    // }
+    // buffer[ecode]='\0';
+    // printf("Message recu du serveur : %s\n", buffer);
+
+    // // Dix-neuvième étape : envoyer le message du serveur au client
+    // ecode = write(descSockCOM, buffer, strlen(buffer));
+    // if(ecode == -1){
+    //     perror("Erreur écriture dans socket\n");
+    //     exit(10);
+    // }
+    // printf("Message envoyé au client : %s\n", buffer);
+
+    // // Vingtième étape : lire le message envoyé par le client
+    // ecode=read(descSockCOM, buffer, MAXBUFFERLEN-1);
+    // if (ecode == -1){
+    //     perror("Erreur lecture dans socket\n");
+    //     exit(7);
+    // }
+    // buffer[ecode]='\0';
+    // printf("Message recu : %s\n", buffer);
+
+    // // Vingt-et-unième étape : envoyer la requête au serveur
+    // write(sockServeurCMD, buffer, strlen(buffer));
+    // printf("Message envoyé au serveur : %s\n", buffer);
+
+    // // Vingt-deuxième étape : lire le message envoyé par le serveur
+    // ecode=read(sockServeurCMD, buffer, MAXBUFFERLEN-1);
+    // if(ecode == -1){
+    //     perror("Erreur lecture dans socket\n");
+    //     exit(9);
+    // }
+    // buffer[ecode]='\0';
+    // printf("Message recu du serveur : %s\n", buffer);
+
+    // // Vingt-troisième étape : envoyer le message du serveur au client
+    // ecode = write(descSockCOM, buffer, strlen(buffer));
+    // if(ecode == -1){
+    //     perror("Erreur écriture dans socket\n");
+    //     exit(10);
+    // }
+    // printf("Message envoyé au client : %s\n", buffer);
+
+    // // Vingt-quatrième étape : lire le message envoyé par le client
+    // ecode=read(descSockCOM, buffer, MAXBUFFERLEN-1);
+    // if (ecode == -1){
+    //     perror("Erreur lecture dans socket\n");
+    //     exit(7);
+    // }
+    // buffer[ecode]='\0';
+    // printf("Message recu : %s\n", buffer);
+
+    // // Vingt-cinquième étape : envoyer la requête au serveur
+    // write(sockServeurCMD, buffer, strlen(buffer));
+    // printf("Message envoyé au serveur : %s\n", buffer);
 
     //Fermeture de la connexion
     printf("Fermeture de la connexion\n");
