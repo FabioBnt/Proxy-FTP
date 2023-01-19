@@ -387,7 +387,7 @@ int main()
     buffer[ecode] = '\0';
     printf("Message recu du serveur : %s\n", buffer);
 
-    //* Envoi du message au client
+    //* Envoi de la liste au client
     ecode = write(descSockCOM, buffer, strlen(buffer));
     if (ecode == -1)
     {
