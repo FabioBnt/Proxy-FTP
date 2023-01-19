@@ -104,7 +104,7 @@ int main()
     /*****
      * Testez de mettre 220 devant BLABLABLA ...
      * **/
-    strcpy(buffer, "220 Bienvenue dans le proxy de Fabio et Ismail :) \n");
+    strcpy(buffer, "220 Bienvenue dans le proxy de Fabio et Ismail \n");
     write(descSockCOM, buffer, strlen(buffer));
 
     /*******
