@@ -346,7 +346,7 @@ int main()
     }
     printf("Message envoyé au serveur : %s\n", buffer);
 
-    //* Récupère la première partie de la liste retournée par le serveur et la stocke dans le socket serveur
+    //* Récupère la première ligne de la liste retournée par le serveur et la stocke dans le socket serveur
     ecode = read(serverDataSock, buffer, MAXBUFFERLEN - 1);
     if (ecode == -1)
     {
